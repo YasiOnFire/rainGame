@@ -1,0 +1,45 @@
+$mainColor: #4a08a0;
+$range-width: 100% !default;
+$range-handle-size: 20px !default;
+$range-track-height: 10px !default;
+$range-label-width: 60px !default;
+
+body {
+  background: #2a2b2c;
+  background: linear-gradient(135deg, #0f0f0f 0%, #2a2b2c 100%);
+  color: #fff;
+  width: 100vw;
+  height: 100vh;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  position: relative;
+  font-size: 22px;
+
+
+  p {
+    margin: 0;
+    line-height: 1;
+
+    &:first-of-type {
+      margin-top: 20px;
+    }
+  }
+
+  canvas {
+    width: 100vw;
+    height: 100vh;
+    top: 0;
+    left: 0;
+    position: absolute;
+    cursor: pointer;
+  }
+
+}
+
+@media screen and (max-width: 990px) {
+  body {
+    font-size: 12px;
+  }
+
+}
