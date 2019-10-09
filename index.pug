@@ -6,12 +6,27 @@ head
   link(rel='stylesheet' href='style/style.css')
   link(href="https://fonts.googleapis.com/css?family=VT323" rel="stylesheet")
   
-  title 408 Request Timeout
+  title Rainman
   #app
     #canvas_container
+    #gui
+      | Time: {{ timeLimit }}<br>
+      | Fire extinguished: {{ score }}<br>
+    #overlay(:class="inGame ? '' : 'shown'")
+      #info
+        h1
+          |Ghost Boo-sters!<br>
+        small|Use your mouse as a flashlight and find all the ghosts in the attic before the time runs out.
+        p
+          button(@click="startGame()")
+            |Start
+    #timeout(:class="gameOver ? 'shown' : ''")| {{message}}<br>
+      button(@click="restartGame()")
+        |Again?
     
   script(src='https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.17/vue.min.js')
   script(src='https://cdnjs.cloudflare.com/ajax/libs/matter-js/0.12.0/matter.min.js')
   script(src='https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.7.2/p5.min.js')
   script(src='https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.7.2/addons/p5.dom.min.js')
+  script(src='https://cdnjs.cloudflare.com/ajax/libs/animejs/2.2.0/anime.min.js')
   script(src='sketch.js')

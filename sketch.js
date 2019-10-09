@@ -14,6 +14,7 @@ new Vue({
 		message: '',
 		rainColor: '#098bd6',
 		score: 0,
+		timelineParameters: null,
 		hScale: window.innerHeight / 800
 	},
 	watch: {
@@ -27,11 +28,18 @@ new Vue({
 	},
 	methods: {
 		restartGame() {
+			let canv = document.getElementsByTagName('canvas')
+			Array.from(canv).forEach((e) => e.remove())
+			var interval_id = window.setInterval("", 9999)
+			for (var i = 1; i < interval_id; i++)
+        window.clearInterval(i);
+
 			this.timelineParameters.loop = false
 			this.timelineParameters.autoplay = false
 			this.timelineParameters.pause()
 			this.inGame = true;
 			this.gameOver = false;
+			this.myp5 = null;
 			this.fires = []
 			this.timeLimit = 15
 			this.score = 0
@@ -41,26 +49,55 @@ new Vue({
 			}, 1000)
 		},
 		startGame() {
+			console.log('start');
 			this.restartGame();
+		},
+		getRndInteger(axis, max) {
+			if (axis === 'x') {
+				return Math.floor(Math.random() * (max))
+			} else {
+				return Math.floor(Math.random() * (max))
+			}
+		},
+		dist(a, b) {
+			return Math.abs(a - b)
+		},
+		initDemo() {
+			this.timelineParameters = anime.timeline({
+				direction: 'alternate',
+				loop: true
+			})
+			this.myp5.mouseDragged()
+
+			this.timelineParameters
+				.add({
+					targets: this.position,
+					x: [this.getRndInteger('x', window.innerWidth), this.getRndInteger('x', window.innerWidth), this.getRndInteger('x', window.innerWidth), this.getRndInteger('x', window.innerWidth)],
+					y: [this.getRndInteger('y', window.innerHeight - 200), this.getRndInteger('y', window.innerHeight - 200), this.getRndInteger('y', window.innerHeight - 200), this.getRndInteger('y', window.innerHeight - 200)],
+					duration: 10000,
+					easing: 'easeInOutQuad'
+				})
 		},
 		initGame() {
 			let _this = this
 			let particleSystem = []
 
-			document.addEventListener('touchmove', (event) => {
-				event.preventDefault()
-				var touch = event.touches[0]
-				this.position.x = touch.clientX
-				if (touch.clientY < window.innerHeight - 200) {
-					this.position.y = touch.clientY
-				}
-			})
-			document.addEventListener('mousemove', (event) => {
-				this.position.x = event.clientX
-				if (event.clientY < window.innerHeight - 200) {
-					this.position.y = event.clientY
-				}
-			})
+			if (this.inGame) {
+				document.addEventListener('touchmove', (event) => {
+					event.preventDefault()
+					var touch = event.touches[0]
+					this.position.x = touch.clientX
+					if (touch.clientY < window.innerHeight - 200) {
+						this.position.y = touch.clientY
+					}
+				})
+				document.addEventListener('mousemove', (event) => {
+					this.position.x = event.clientX
+					if (event.clientY < window.innerHeight - 200) {
+						this.position.y = event.clientY
+					}
+				})
+			}
 
 			function sketchInit(sketch) {
 				let engine
@@ -151,6 +188,9 @@ new Vue({
 						particleSystem.push(new ParticleSystem(sketch.createVector(x, window.innerHeight - lifespan)))
 					}
 					if (!_this.gameOver) {}
+					sketch.fill(255,0,0)
+					sketch.noStroke()
+					sketch.ellipse(_this.position.x, _this.position.y, 30, 30)
 				}
 				sketch.mouseDragged = function () {
 					if (inter) return false
@@ -289,6 +329,9 @@ new Vue({
 				sketchInit(sketch)
 			}
 			this.myp5 = new p5(canv, 'canvas_container')
+			if (!this.inGame) {
+				this.initDemo()
+			}
 		}
 	},
 	mounted() {
