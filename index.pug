@@ -4,23 +4,25 @@ head
   meta(http-equiv='X-UA-Compatible' content='IE=edge')
   meta(name='viewport' content='width=device-width, initial-scale=1')
   link(rel='stylesheet' href='style/style.css')
-  link(href="https://fonts.googleapis.com/css?family=VT323" rel="stylesheet")
+  link(href="https://fonts.googleapis.com/css?family=Rock+Salt&display=swap" rel="stylesheet")
   
-  title Rainman
+  title Rain Game
   #app
     #canvas_container
     #gui
-      | Time: {{ timeLimit }}<br>
-      | Fire extinguished: {{ score }}<br>
+      | Time left: {{ timeLimit }}<br>
+      | Fires extinguished: {{ firesExt }}<br>
+      | Score: {{ score }}<br>
     #overlay(:class="inGame ? '' : 'shown'")
       #info
         h1
-          |Ghost Boo-sters!<br>
-        small|Use your mouse as a flashlight and find all the ghosts in the attic before the time runs out.
+          |Rain Game
+        span|(Opposites Challenge)<br>
+        small|You have 20 seconds. How many fires can You extinguish?
         p
           button(@click="startGame()")
-            |Start
-    #timeout(:class="gameOver ? 'shown' : ''")| {{message}}<br>
+            |GO
+    #timeout(:class="gameOver ? 'shown' : ''")| Fires: {{firesExt}}  Score: {{score}}<br>
       button(@click="restartGame()")
         |Again?
     

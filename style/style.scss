@@ -1,12 +1,7 @@
-$mainColor: #4a08a0;
-$range-width: 100% !default;
-$range-handle-size: 20px !default;
-$range-track-height: 10px !default;
-$range-label-width: 60px !default;
-
+$mainColor: #ff6400;
+$secondColor: #098bd6;
 body {
-  background: #2a2b2c;
-  background: linear-gradient(135deg, #0f0f0f 0%, #2a2b2c 100%);
+  background: linear-gradient(to top, rgb(59, 44, 27) 0%,rgb(0,0,0) 20%,rgb(30, 41, 54) 100%);
   color: #fff;
   width: 100vw;
   height: 100vh;
@@ -15,7 +10,14 @@ body {
   overflow: hidden;
   position: relative;
   font-size: 22px;
+  font-family: 'Rock Salt', cursive;
 
+  .blue{
+    color: $secondColor
+  }
+  .orange{
+    color: $mainColor
+  }
 
   p {
     margin: 0;
@@ -24,6 +26,25 @@ body {
     &:first-of-type {
       margin-top: 20px;
     }
+  }
+
+  #info {
+    text-align: center;
+    width: 100%;
+    max-width: 450px;
+    pointer-events: all;
+
+    small {
+      // font-size: 50%;
+      line-height: 1;
+      font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    }
+  }
+
+  h1 {
+    font-weight: 400;
+    margin: 0 0 10px;
+    line-height: 1;
   }
 
   canvas {
@@ -35,16 +56,147 @@ body {
     cursor: pointer;
   }
 
-  #gui, #overlay {
-    z-index: 99999;
+  #gui {
     position: absolute;
+    top: 15%;
+    right: 5%;
+    z-index: 999;
+    text-align: right;
+    font-size: 24px;
+    pointer-events: none;
+    opacity: .6;
+
+    span {
+      font-size: 60px;
+      margin-left: 5px;
+    }
+  }
+  #overlay {
+    width: 100vw;
+    height: 100vh;
+    position: absolute;
+    z-index: 998;
+    top: 0;
+    left: 0;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    // background-color: rgba(0, 0, 0, .3);
+    transition: all ease-in-out .3s;
+    display: flex;
+    opacity: 0;
+    background: linear-gradient(to top, rgba(255,153,50,0.5) 0%,rgba(0,0,0,0.5) 50%,rgba(28,126,255,0.5) 100%);
+    pointer-events: none;
+    &.shown {
+      pointer-events: none;
+      transition: all ease-in-out .3s;
+      opacity: 1;
+      animation: fadeIn 1s;
+    }
+  }
+  #timeout {
+    box-shadow: 0 0 200px 100px rgb(0, 0, 0);
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -55%) scale3d(1, 1, 1) rotate(-10deg);
+    transition: all 1s cubic-bezier(0.455, 0.03, 0.515, 0.955) 3s;
+    z-index: 999;
+    font-size: 3vw;
+    color: #fff;
+    background-color: rgba(0, 0, 0, .9);
+    padding: 20px 35px;
+    line-height: 1;
+    text-align: center;
+    display: none;
+
+    &.shown {
+      // opacity: 1;
+      transform: translate(-50%, -55%) scale3d(1.3, 1.3, 1) rotate(-1deg);
+      animation: fadeIn 1s;
+      display: block;
+    }
+    button {
+      font-size: 20px;
+    }
   }
 
+  .hidden-elements {
+    display: none;
+  }
+
+  button {
+    border: none;
+    padding: 10px 30px;
+    margin-top: 20px;
+    border-radius: 50%;
+    text-transform: uppercase;
+    cursor: pointer;
+    font-size: 30px;
+    font-family: 'Rock Salt', cursive;
+    background-color: $secondColor;
+    transition: all cubic-bezier(0.19, 1, 0.22, 1) .3s;
+    transform: scale3d(1,1,1);
+    color: #fff;
+    
+    &:hover,
+    &:focus {
+      transform: scale3d(1.2,1.2,1.2);
+      background-color: darken($mainColor, 10%);
+    }
+  }
 }
 
 @media screen and (max-width: 990px) {
   body {
     font-size: 12px;
+
+    #info {
+      bottom: 25px;
+      left: 25px;
+      top: 20px;
+    }
+
+    #gui {
+      top: 20px;
+    }
+
+    h1 small {
+      display: none;
+    }
+
+
+    #timeout {
+      padding: 0px 12px;
+    }
   }
 
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+
+  to {
+    opacity: 0;
+  }
+}
+::selection {
+  background-color: $mainColor;
+  color: $secondColor;
+}
+::-moz-selection {
+  background-color: $mainColor;
+  color: $secondColor;
 }
