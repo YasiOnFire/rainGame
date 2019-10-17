@@ -16,7 +16,7 @@ new Vue({
 		score: 0,
 		firesExt: 0,
 		timelineParameters: null,
-		maxY: window.innerHeight - (window.innerHeight / 3.5)
+		maxY: window.innerHeight - (window.innerHeight / 2.5)
 	},
 	watch: {
 		timeLimit(val) {
@@ -83,12 +83,12 @@ new Vue({
 			let world
 			let rain = []
 			let inter = null
-			const CLOUD_SIZE = window.innerWidth / 10
+			const CLOUD_SIZE = window.innerWidth / 13
 			const RAIN_COUNT = 110
 			const MAX_FIRES = 10
-			const RAIN_SIZE = window.innerWidth / 80
+			const RAIN_SIZE = window.innerWidth / 85
 			const FIRE_SIZES = [
-				window.innerWidth / 20, window.innerWidth / 30
+				window.innerWidth / 24, window.innerWidth / 34
 			]
 			const Engine = Matter.Engine
 			const Render = Matter.Render

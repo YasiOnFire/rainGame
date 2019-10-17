@@ -15,15 +15,15 @@ head
       | Score: {{ score }}<br>
     #overlay(:class="inGame ? '' : 'shown'")
       #info
-        h1
+        h1.pe
           |Rain Game
-        span|(Opposites Challenge)<br>
-        small|You have 20 seconds. How many fires can You extinguish?
+        span.pe|(Opposites Challenge)<br>
+        small.pe|You have 20 seconds. How many fires can You extinguish?
         p
           button(@click="startGame()")
             |GO
-    #timeout(:class="gameOver ? 'shown' : ''")| Fires: {{firesExt}}  Score: {{score}}<br>
-      button(@click="restartGame()")
+    #timeout(:class="[gameOver ? 'shown' : '', 'pe']")| Fires: {{firesExt}}  Score: {{score}}<br>
+      button.pa(@click="restartGame()")
         |Again?
     
   script(src='https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.17/vue.min.js')

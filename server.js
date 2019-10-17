@@ -21,4 +21,4 @@ app.get("/", (req, res) => {
   res.render("index")
 })
 
-app.listen(3003, () => console.log('\x1b[36m', 'Serving this beautiful dish at http://localhost:3003 !', '\x1b[0m'))
+app.listen(3003, () => console.log('\x1b[36m', 'Serving at http://localhost:3003 !', '\x1b[0m'))
