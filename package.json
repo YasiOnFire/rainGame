@@ -20,7 +20,7 @@
   "license": "ISC",
   "homepage": "https://bitbucket.org/Yasio/hourglass#readme",
   "dependencies": {
-    "express": "^5.0.1",
+    "express": "^5.2.0",
     "node-sass-middleware": "^1.1.0",
     "pug": "^3.0.3"
   },
